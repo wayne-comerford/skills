@@ -1,0 +1,168 @@
+---
+name: assayer
+description: The default working method for every substantive request — anchor the ask to a standard, build against it, then prove it with an independent check the builder never touched. Use this on essentially any real task: building or changing a feature, writing or fixing code, producing docs, designs, reports, data work, or research. Especially load it when the user names a quality bar ("as good as Linear", "match Stripe's docs", "better than our competitor's"), asks for work that is world-class, production-grade, pixel-perfect or "utterly perfect", asks to fan out subagents, loop until it's perfect, or wants a harsh critic reviewing until the quality is there. Scales from a one-line verification on a small fix to full parallel fan-out with a blind comparison gate, so it fits trivial and ambitious work alike. Composes with the superpowers skills rather than replacing them.
+---
+
+# Assayer
+
+An assayer takes a sample, tests it against a known standard, and certifies what it actually is. That is the job here, applied to whatever is being asked for.
+
+Every ask gets the same three beats:
+
+1. **Anchor** — what is being made, and what standard says it's good
+2. **Build** — the work itself
+3. **Prove** — an independent check the builder never touched, then an honest report
+
+The ask is open-ended; the method is not. What varies is *weight*, never structure. A typo fix and a ground-up product both get anchored, built and proved — one takes thirty seconds, the other takes eight agents and five rounds.
+
+Two properties make this work, and every rule below protects one of them:
+
+**Nobody grades their own homework.** Whoever built it already decided it was reasonable — that's why they built it that way. Self-review finds typos, not the flaws that come from the author's own taste. Whatever does the proving must not be what did the building, and must not see its reasoning.
+
+**"Good" has to be falsifiable.** An agent told to make something beautiful stops the moment the output matches its internal picture of beautiful — a competent, generic average. "As good as Linear's issue list" is checkable, because Linear's issue list exists and can be opened. "Polished" is not.
+
+---
+
+## Pick the weight first
+
+State which weight you're using in one line before starting. Declaring it is the guardrail: it stops heavy asks being quietly served with light work, and stops trivial asks eating eight agents.
+
+| | **Light** | **Standard** | **Heavy** |
+| --- | --- | --- | --- |
+| **When** | One right answer. Typo, rename, config, small bugfix. | A feature, page, doc, or module. Most real work. | "World-class", multi-surface, or a named exemplar to beat. |
+| **Anchor** | One line: what "correct" means here | Named standard + 3–6 checkable dimensions | Exemplar + fidelity tier + 5–12 *ranked* dimensions |
+| **Build** | Just do it | TDD where code, one worktree | Fan out on owned paths, calibrate one item first |
+| **Prove** | Run the test; re-read against the anchor with fresh eyes | One fresh critic subagent, full verdict format | Critic per item + blind or spec gate + integration pass |
+
+When it's genuinely ambiguous, go one step lighter and say so — an under-weighted task that comes back is cheap, an over-weighted one has already burned the budget. If the user asked for "perfect" or named something to beat, it's Heavy regardless of size.
+
+---
+
+## Working with superpowers
+
+These skills already do most of the build and verify machinery well. Call them; don't reimplement them. Assayer's contribution is what they don't cover: the external anchor, the separation rule, the gate, and convergence tracking.
+
+| Beat | Reach for |
+| --- | --- |
+| **Anchor** | `superpowers:brainstorming` for anything open-ended or creative — it belongs *here*, before a line is written, and it is where the exemplar and dimensions get pinned down. `superpowers:writing-plans` once the shape is agreed and the task is multi-step. |
+| **Build** | `superpowers:test-driven-development` for code — tests are an anchor you can run. `superpowers:using-git-worktrees` for isolation. `superpowers:dispatching-parallel-agents` and `superpowers:subagent-driven-development` for fan-out. `superpowers:executing-plans` when a written plan exists. `superpowers:systematic-debugging` the moment a defect survives two rounds. |
+| **Prove** | `superpowers:verification-before-completion` — same principle as this skill, evidence before assertions; run it before any completion claim. `superpowers:requesting-code-review` and `superpowers:receiving-code-review` for code. `superpowers:finishing-a-development-branch` to integrate. |
+
+Where they overlap, the superpowers skill wins on mechanics and Assayer wins on standard-setting: brainstorming decides *what* to build, the anchor decides *what good looks like*, and neither substitutes for the other.
+
+---
+
+## 1. Anchor
+
+**Name what "good" means before building, in checkable terms.** At Light this is a sentence. At Standard and Heavy, dimensions with pass conditions:
+
+> Weak: "Animations should feel smooth."
+> Strong: "Every state transition is 120–200ms, ease-out, no layout shift, 60fps on a 4x-throttled CPU."
+
+**At Heavy, name an exemplar** — one to three real artifacts someone can open. Not "a modern SaaS dashboard" but "Linear's issue list: the density, the keyboard model, how it stays responsive at 5,000 rows." If the user said "world-class" without naming anything, propose two or three and let them pick; that choice says more than any amount of adjective-gathering. Then **rank the dimensions**, because the ranking decides where rounds get spent — otherwise the loop polishes shaders while input latency stays terrible.
+
+**Establish how close you can actually get to the exemplar.** This decides which gate exists in beat 3:
+
+| Tier | What you have |
+| --- | --- |
+| **T1 Direct** | You can run, open, and measure it yourself |
+| **T2 Supplied** | The user captured it for you |
+| **T3 Published** | Teardowns, design-system docs, changelogs, published source |
+| **T4 Recalled** | Your memory of it, written down and corrected by the user |
+
+Check early, because tooling failure looks identical to the exemplar being unavailable. In sandboxed sessions outbound HTTP is usually blocked — `curl`, `WebFetch` and headless-browser navigation all fail while `WebSearch` keeps working, which is exactly T3: you can read about the exemplar in detail but never see it.
+
+**T2 costs one message and is the highest-leverage move available.** If you're at T3/T4 and the user has the exemplar open on their own machine, ask for captures — screenshots at named viewports, a recording, an exported file. Thirty seconds of their time turns the weakest anchor into the strongest. Ask before building, not after a critic starts guessing.
+
+At T3/T4, write the anchor as a frozen specification before any code exists — it becomes the exit test, and a spec written afterwards drifts toward describing whatever you happened to build.
+
+Keep working files in `.assay/` and add it to `.gitignore`.
+
+---
+
+## 2. Build
+
+At Light, build. At Standard and Heavy:
+
+**Slice so each item can be judged alone.** The test: could a critic who has seen only this item and the anchor reach a verdict? "Improve performance" fails. "First contentful paint under 800ms on a cold cache, throttled 3G" passes.
+
+**Give each item exclusive file ownership.** Parallel agents editing shared paths lose each other's writes, and the damage costs more than the parallelism saved. Sequence overlapping items, or isolate them with worktrees and integrate after.
+
+**Calibrate one item before fanning out.** Take a single representative item through the full cycle first. You're testing the anchor, not the item — a dimension nobody can fail, a critic that rejects everything, an unreachable exemplar detail. Fan out first and you find the same flaw in eight agents and pay eight times to fix it.
+
+Builders get the item, its owned paths, its dimensions, and the reference material. They are not asked to assess their own work, and their opinion of it is not collected.
+
+---
+
+## 3. Prove
+
+**The check is independent or it is worthless.** A fresh critic that never saw the build reasoning inspects the **running artifact** — runs it, screenshots it, profiles it, uses it. A diff shows intent; only the artifact shows what the user gets. If an item isn't runnable standalone, batch it with its dependencies or sequence it; never let "not runnable yet" quietly downgrade a check to a code read.
+
+```
+VERDICT: SHIP | REWORK
+DEFECTS (most severe first):
+- [blocker|major|minor] <where> — <what's wrong> — <what the standard says instead> — <what fixed looks like>
+```
+
+**SHIP means zero blockers, zero majors.** Minors logged, non-blocking. Define this before the first check — an undefined bar is the usual cause of an item ping-ponging forever between two critics silently applying two standards.
+
+Harsh *and specific*. "This doesn't feel right" burns a round and teaches nobody anything; the four-part format forces criticism into something a builder can act on. No praise — `SHIP` says it.
+
+### The gate (Heavy)
+
+**T1/T2 — blind comparison.** Capture matched samples: same viewport and scene, same input, same task, same query. Randomize A and B, keep the key from the judge, and give a judge agent **no project context at all**:
+
+```
+WINNER: A | B | TIE
+CONFIDENCE: high | medium | low
+TELLS: the specific observations that decided it
+PER-DIMENSION: <dimension> → A | B | tie, with the reason
+```
+
+Passing means the judge picks yours or genuinely can't tell. A confident pick for the exemplar is the most valuable output the whole method produces — those tells are your remaining defect list, written by something with no stake in your feelings. `scripts/blind_compare.py` handles the mechanics.
+
+**T3/T4 — spec gate.** There's nothing to put on the other side. Don't manufacture it: judging against a mockup you built of the exemplar compares your work to your own impression while wearing the costume of an external test. Instead have a fresh judge score the artifact against the frozen spec line by line — met / not met / unverifiable — and use `--self-blind` to compare this round against the last, catching regressions and flat rounds.
+
+**Integration.** Items pass alone and still fail together: fonts drift, error handling diverges, seams show. Run one critic over the whole artifact looking for incoherence *between* parts, then gate again at whole-artifact level.
+
+---
+
+## Guardrails
+
+Due diligence is mostly a set of refusals. These hold at every weight.
+
+- **No completion claim without evidence.** "Tests pass" means you ran them and read the output. Run `superpowers:verification-before-completion` before saying done.
+- **No self-certification.** Whatever proves it must not be what built it. At Light that means at minimum re-reading against the anchor with the build reasoning set aside; at Standard and above it means a separate agent.
+- **No claimed parity you can't demonstrate.** A spec gate shows compliance, not parity. *"Meets every line of the spec we derived from published teardowns; no direct comparison was possible"* is a real result. *"Indistinguishable from the real thing"* — when nobody ever managed to see the real thing — is not.
+- **No inventing the reference.** If you can't reach the exemplar, say which tier you're on. Never reconstruct it and treat the reconstruction as external.
+- **No scope deletion.** Removing a hard requirement so the rest looks clean is a failed round, not a passed one. A stated blocker is a useful result; a quietly dropped feature is not.
+- **No silent anchor changes.** The standard is fixed at beat 1. Changing it is a decision you put to the user mid-flight, not an edit.
+- **Say what you skipped.** If part of the ask was left out or a check couldn't run, name it. Scaling the work down is the user's call.
+
+### Knowing when to stop
+
+Track per round in `.assay/progress.md`:
+
+- **Converging** — severity-weighted defects falling. Keep going.
+- **Oscillating** — round N breaks what N-1 fixed. Two critics disagree about the anchor. Tighten the ambiguous dimension, restart the item.
+- **Flat** — no net reduction. Polish isn't the problem; the design underneath is. Escalate with a recommendation instead of spending another round.
+- **Same defect three times** — the builder can't see what the critic sees. Change the evidence, not the wording: an annotated screenshot, a profile trace, a direct diff. Then reach for `superpowers:systematic-debugging`.
+
+Declare a round budget up front (3 per item, 5 for visual work) so hitting it is a checkpoint rather than a surprise. When it's hit without a SHIP, say what passed, what didn't, and what closing the gap takes. *"Three of four items match; lighting is still visibly behind, here's why"* beats a claim of perfection the user disproves in ten seconds.
+
+---
+
+## Failure modes
+
+- **Anchor drift** — agents rewriting the standard to match what they built.
+- **Demo-only fidelity** — the screenshotted path is immaculate, everything beside it is rough. Probe what nobody's been polishing.
+- **Reference amnesia** — by round three agents compare against their memory of the exemplar. Re-attach the real files every round.
+- **Wrong-axis polish** — ten rounds on shaders while input latency stays bad. That's what ranking the dimensions is for.
+- **Weight inflation** — running Heavy on work that needed Light. Expensive theatre, and it trains the user to stop trusting the method.
+
+## Files
+
+- `references/critique-rubrics.md` — dimensions, inspection technique, and "not there yet" tells across nine domains. Read the section matching the work.
+- `references/agent-prompts.md` — builder, critic, blind judge, spec-gate judge, integration critic.
+- `scripts/blind_compare.py` — randomized side-by-side, key written outside the judge's directory:
+  `python blind_compare.py --ours a.png b.png --reference ref/a.png ref/b.png --out .assay/gate/x --views empty populated`
