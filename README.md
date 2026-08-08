@@ -45,7 +45,9 @@ The standard is the budget, in numbers, ranked by what users actually feel. Meas
 **4. Bring documentation up to a known-good example.**
 > *"Rewrite our getting-started guide so it's as good as Stripe's."*
 
-The standard is Stripe's quickstart: time from install to first working call, every sample runnable exactly as printed. The check has an agent that has never seen your product follow your guide on a clean machine and time it. Every place it had to fix a code sample to make it work is a defect.
+The standard is the exemplar's quickstart: time from install to first working call, every sample runnable exactly as printed. The check hands your guide to an agent that knows nothing about your product and has it follow the steps literally, copy-pasting rather than fixing as it goes. Every place it had to repair a sample to make it work is a defect.
+
+Worth knowing before you pick a target: some documentation sites sit behind bot protection. Stripe's does — it can be read *about* but not captured, which drops this to scoring against a written spec rather than a direct comparison. The skill checks reachability up front and tells you which of the two you're getting.
 
 **5. Make numbers reconcile.**
 > *"This revenue report disagrees with finance. Find out why."*

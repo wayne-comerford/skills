@@ -70,7 +70,11 @@ Where they overlap, the superpowers skill wins on mechanics and Assayer wins on 
 | **T3 Published** | Teardowns, design-system docs, changelogs, published source |
 | **T4 Recalled** | Your memory of it, written down and corrected by the user |
 
-Check early, because tooling failure looks identical to the exemplar being unavailable. In sandboxed sessions outbound HTTP is usually blocked — `curl`, `WebFetch` and headless-browser navigation all fail while `WebSearch` keeps working, which is exactly T3: you can read about the exemplar in detail but never see it.
+Check early, and check properly, because tooling failure looks identical to the exemplar being unavailable and the two call for completely different responses.
+
+Work down the rungs rather than stopping at the first refusal. In sandboxed sessions direct outbound HTTP is usually blocked — `curl`, `WebFetch` and headless-browser navigation all fail — while `WebSearch` keeps working. But a scraping service reaches sites the sandbox cannot, and if one is installed it often turns a presumed T3 into a real T1. Look for what this environment actually has (Firecrawl, Brave, any MCP fetch tool) before concluding the exemplar is out of reach; declaring T3 with an unused capability sitting there is the most common way this step goes wrong.
+
+Expect two distinct failures and read them differently. A network or proxy refusal means *you* cannot get out, and another tool may still succeed. A captcha or bot wall means the *site* is refusing automated access, and no amount of tool-swapping fixes it — that one is genuinely T3 no matter what you have installed. Heavily-defended documentation and product sites hit the second case routinely, so a plausible-looking capture is worth a glance before you trust it: a page of captcha text will scrape without erroring and looks like success.
 
 **T2 costs one message and is the highest-leverage move available.** If you're at T3/T4 and the user has the exemplar open on their own machine, ask for captures — screenshots at named viewports, a recording, an exported file. Thirty seconds of their time turns the weakest anchor into the strongest. Ask before building, not after a critic starts guessing.
 
