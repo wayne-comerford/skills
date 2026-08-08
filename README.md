@@ -17,6 +17,16 @@ Symlinking rather than copying means `git pull` updates the installed skill in p
 
 ### [assayer](assayer/)
 
+**The short version.** Say you want to bake a cake as good as the one from the bakery. Most people bake one, taste it, and decide it's lovely — but they baked it, so of course they like it. Assayer makes you do it the other way round: put the bakery cake on the table *first* and write down what makes it good (very lemony, squishy not dry, thin icing). Then bake. Then cut a slice of each, hide which is which, and hand both to someone who didn't bake either one. If they pick the bakery cake, ask why — "yours is dry" is your list. Bake again. You're done when they can't tell which is which.
+
+Writing the standard down first is the part people skip, and it's the part that matters: a standard written afterwards just describes whatever you happened to produce.
+
+The thing you measure against doesn't have to be another product. It's often a rule book — a spec, a performance budget, an accessibility standard, a set of tests. Anything with a number in it that someone else could check.
+
+Two more rules. **Sometimes you can't get the bakery cake** — it's behind a login, it's a competitor's, the sandbox blocks the internet. Then write down everything you know about it before you build, and say plainly that you never tasted it. **Sometimes stop** — if three rounds are wrong in the same way, a fourth won't help; the recipe is wrong, not the baking.
+
+---
+
 An assayer takes a sample, tests it against a known standard, and certifies what it actually is. This is that, as a default working method for any request.
 
 Every ask gets the same three beats — **anchor** what "good" means in checkable terms, **build**, then **prove** with an independent check the builder never touched. The ask is open-ended; the method isn't. What varies is weight, never structure: a typo fix and a ground-up product both get anchored, built and proved, one in thirty seconds and one across eight agents and five rounds.
