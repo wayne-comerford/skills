@@ -25,6 +25,35 @@ The thing you measure against doesn't have to be another product. It's often a r
 
 Two more rules. **Sometimes you can't get the bakery cake** — it's behind a login, it's a competitor's, the sandbox blocks the internet. Then write down everything you know about it before you build, and say plainly that you never tasted it. **Sometimes stop** — if three rounds are wrong in the same way, a fourth won't help; the recipe is wrong, not the baking.
 
+#### Five ways people use it
+
+**1. Beat a competitor's interface.**
+> *"Our settings page looks amateur next to Linear's. Get it to their standard."*
+
+The standard is Linear's actual page, captured at the same viewports. The check hands your screenshot and theirs to a fresh agent, shuffled and unlabelled, and asks which is better. If it picks theirs, whatever it says gave it away is your to-do list — written by something with no reason to be kind to you.
+
+**2. Hold a written standard before shipping.**
+> *"Check the whole checkout flow against WCAG AA before this goes out."*
+
+No competitor involved. The standard is the spec — contrast ratios, focus indicators, keyboard paths, all numbers. An agent that didn't write the code drives the real pages and measures. This is the most common use in practice, and it catches the thing you'd swear you'd already fixed.
+
+**3. Make a performance budget stick.**
+> *"The dashboard takes four seconds to load. Get it under one on a throttled phone."*
+
+The standard is the budget, in numbers, ranked by what users actually feel. Measured on a cold cache and throttled hardware, not on your dev machine. Kills "it feels faster now" as evidence.
+
+**4. Bring documentation up to a known-good example.**
+> *"Rewrite our getting-started guide so it's as good as Stripe's."*
+
+The standard is Stripe's quickstart: time from install to first working call, every sample runnable exactly as printed. The check has an agent that has never seen your product follow your guide on a clean machine and time it. Every place it had to fix a code sample to make it work is a defect.
+
+**5. Make numbers reconcile.**
+> *"This revenue report disagrees with finance. Find out why."*
+
+The standard is finance's figures — a known-good source outside the pipeline. The check reruns and diffs for non-determinism, reconciles a sample by hand, and feeds in deliberately broken rows to see whether it fails loudly or quietly writes something wrong.
+
+Small work stays small. A typo fix gets the same three steps in about ten seconds — state what correct means, change it, run the test — not eight agents and five rounds. The skill picks a weight and tells you which one it chose, so you can push back before anything expensive happens.
+
 ---
 
 An assayer takes a sample, tests it against a known standard, and certifies what it actually is. This is that, as a default working method for any request.
