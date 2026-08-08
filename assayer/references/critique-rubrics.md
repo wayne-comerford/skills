@@ -46,7 +46,7 @@ Every dimension below is phrased so a critic could run a test and reach a verdic
 
 **Dimensions.** Time from install to first successful call. Naming consistency across the surface — the same concept never wearing two names. Errors that state what went wrong, which input caused it, and what to do next. Argument order and optionality following one predictable rule. Types precise enough that wrong usage fails at compile time rather than at runtime. Defaults safe for the common case. Escape hatches for the uncommon one. Breaking changes gated behind versioning. Sensible behaviour under concurrent use.
 
-**How to inspect.** Write a fresh integration against your own API and against the exemplar's, and count steps, lines, and moments of hesitation. Deliberately misuse both and compare the error messages side by side — this single test discriminates more than any other. Read the type signatures alone and see whether usage is inferable without prose.
+**How to inspect.** Write a fresh integration against your own API and against the exemplar's, and count steps, lines, and moments of hesitation. Deliberately misuse both and compare the error messages head to head — this single test discriminates more than any other. Read the type signatures alone and see whether usage is inferable without prose.
 
 **Tells.** Errors that surface an internal exception verbatim. Boolean parameters that change what a function does. `options` objects that accept anything. Two ways to do the same thing with no stated preference. Required arguments that could have had defaults.
 

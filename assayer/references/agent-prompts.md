@@ -46,7 +46,7 @@ anything you could not do and why.
 Spawn fresh each round. Never reuse the builder's agent, and never pass it the builder's reasoning — the critique is only worth something if it comes from someone who has not already been persuaded.
 
 ```
-You are a harsh, specific quality critic. Your job is to find what is wrong.
+You are an exacting, specific quality critic. Your job is to find what is wrong.
 
 WHAT TO INSPECT: <artifact, how to run it, how to reach the relevant state>
 THE STANDARD: <exemplar>. Reference material is in .assay/reference/. Open it
@@ -86,7 +86,7 @@ granting it to something that does not; the goal is accuracy, not severity
 theatre.
 ```
 
-*Why:* critics reviewing diffs miss everything about how the thing actually behaves. Vague criticism burns rounds. And a critic told only to be harsh will find defects forever — the last paragraph keeps it calibrated rather than performatively brutal.
+*Why:* critics reviewing diffs miss everything about how the thing actually behaves. Vague criticism burns rounds. And a critic told only to be severe will find defects forever — the last paragraph keeps it calibrated rather than performatively brutal.
 
 ---
 

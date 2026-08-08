@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a blind side-by-side comparison between our artifact and a reference.
+"""Build a blind head-to-head comparison between our artifact and a reference.
 
 Randomizes which side becomes A and which becomes B, copies both under neutral
 names, and writes the answer key OUTSIDE the directory the judge is given. The
@@ -27,7 +27,7 @@ against the last to detect regression and flat rounds:
 Produces:
     <out>/compare/          <- hand this path to the judge, and nothing else
         artifact_A_1.<ext>, artifact_B_1.<ext>, ...
-        index.html          <- side-by-side viewer
+        index.html          <- head-to-head viewer
     <out>/KEY.json          <- keep out of the judge's context
 """
 
@@ -116,7 +116,7 @@ PAGE = """<!doctype html>
 </style>
 <header>
   <h1>Blind comparison &mdash; {dimension}</h1>
-  <p>Two independently produced artifacts. Judge which is better against the rubric.</p>
+  <p>Two independently produced artifacts. Assess which one better meets the rubric.</p>
 </header>
 {sections}
 """

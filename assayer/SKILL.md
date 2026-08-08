@@ -1,6 +1,6 @@
 ---
 name: assayer
-description: The default working method for every substantive request — anchor the ask to a standard, build against it, then prove it with an independent check the builder never touched. Use this on essentially any real task: building or changing a feature, writing or fixing code, producing docs, designs, reports, data work, or research. Especially load it when the user names a quality bar ("as good as Linear", "match Stripe's docs", "better than our competitor's"), asks for work that is world-class, production-grade, pixel-perfect or "utterly perfect", asks to fan out subagents, loop until it's perfect, or wants a harsh critic reviewing until the quality is there. Scales from a one-line verification on a small fix to full parallel fan-out with a blind comparison gate, so it fits trivial and ambitious work alike. Composes with the superpowers skills rather than replacing them.
+description: The default working method for every substantive request — anchor the ask to a standard, build against it, then prove it with an independent check the builder never touched. Use this on essentially any real task: building or changing a feature, writing or fixing code, producing docs, designs, reports, data work, or research. Especially load it when the user names a quality bar ("as good as Linear", "match Stripe's docs", "better than our competitor's"), asks for work that is world-class, production-grade, pixel-perfect or flawless, asks to run subagents in parallel, iterate until it holds up, or wants an unsparing reviewer that will not sign off early. Scales from a one-line verification on a small fix to full parallel dispatch with a blind comparison gate, so it fits trivial and ambitious work alike. Composes with the superpowers skills rather than replacing them.
 ---
 
 # Assayer
@@ -31,7 +31,7 @@ State which weight you're using in one line before starting. Declaring it is the
 | --- | --- | --- | --- |
 | **When** | One right answer. Typo, rename, config, small bugfix. | A feature, page, doc, or module. Most real work. | "World-class", multi-surface, or a named exemplar to beat. |
 | **Anchor** | One line: what "correct" means here | Named standard + 3–6 checkable dimensions | Exemplar + fidelity tier + 5–12 *ranked* dimensions |
-| **Build** | Just do it | TDD where code, one worktree | Fan out on owned paths, calibrate one item first |
+| **Build** | Just do it | TDD where code, one worktree | Parallel agents on owned paths, calibrate one item first |
 | **Prove** | Run the test; re-read against the anchor with fresh eyes | One fresh critic subagent, full verdict format | Critic per item + blind or spec gate + integration pass |
 
 When it's genuinely ambiguous, go one step lighter and say so — an under-weighted task that comes back is cheap, an over-weighted one has already burned the budget. If the user asked for "perfect" or named something to beat, it's Heavy regardless of size.
@@ -45,7 +45,7 @@ These skills already do most of the build and verify machinery well. Call them; 
 | Beat | Reach for |
 | --- | --- |
 | **Anchor** | `superpowers:brainstorming` for anything open-ended or creative — it belongs *here*, before a line is written, and it is where the exemplar and dimensions get pinned down. `superpowers:writing-plans` once the shape is agreed and the task is multi-step. |
-| **Build** | `superpowers:test-driven-development` for code — tests are an anchor you can run. `superpowers:using-git-worktrees` for isolation. `superpowers:dispatching-parallel-agents` and `superpowers:subagent-driven-development` for fan-out. `superpowers:executing-plans` when a written plan exists. `superpowers:systematic-debugging` the moment a defect survives two rounds. |
+| **Build** | `superpowers:test-driven-development` for code — tests are an anchor you can run. `superpowers:using-git-worktrees` for isolation. `superpowers:dispatching-parallel-agents` and `superpowers:subagent-driven-development` for parallel dispatch. `superpowers:executing-plans` when a written plan exists. `superpowers:systematic-debugging` the moment a defect survives two rounds. |
 | **Prove** | `superpowers:verification-before-completion` — same principle as this skill, evidence before assertions; run it before any completion claim. `superpowers:requesting-code-review` and `superpowers:receiving-code-review` for code. `superpowers:finishing-a-development-branch` to integrate. |
 
 Where they overlap, the superpowers skill wins on mechanics and Assayer wins on standard-setting: brainstorming decides *what* to build, the anchor decides *what good looks like*, and neither substitutes for the other.
@@ -88,7 +88,7 @@ At Light, build. At Standard and Heavy:
 
 **Give each item exclusive file ownership.** Parallel agents editing shared paths lose each other's writes, and the damage costs more than the parallelism saved. Sequence overlapping items, or isolate them with worktrees and integrate after.
 
-**Calibrate one item before fanning out.** Take a single representative item through the full cycle first. You're testing the anchor, not the item — a dimension nobody can fail, a critic that rejects everything, an unreachable exemplar detail. Fan out first and you find the same flaw in eight agents and pay eight times to fix it.
+**Calibrate one item before going parallel.** Take a single representative item through the full cycle first. You're testing the anchor, not the item — a dimension nobody can fail, a critic that rejects everything, an unreachable exemplar detail. Parallelise first and you hit the same flaw in eight agents and pay eight times to fix it.
 
 Builders get the item, its owned paths, its dimensions, and the reference material. They are not asked to assess their own work, and their opinion of it is not collected.
 
@@ -106,7 +106,7 @@ DEFECTS (most severe first):
 
 **SHIP means zero blockers, zero majors.** Minors logged, non-blocking. Define this before the first check — an undefined bar is the usual cause of an item ping-ponging forever between two critics silently applying two standards.
 
-Harsh *and specific*. "This doesn't feel right" burns a round and teaches nobody anything; the four-part format forces criticism into something a builder can act on. No praise — `SHIP` says it.
+Exacting *and specific*. "This doesn't feel right" burns a round and teaches nobody anything; the four-part format forces criticism into something a builder can act on. No praise — `SHIP` says it.
 
 ### The gate (Heavy)
 
@@ -143,7 +143,7 @@ Due diligence is mostly a set of refusals. These hold at every weight.
 
 Track per round in `.assay/progress.md`:
 
-- **Converging** — severity-weighted defects falling. Keep going.
+- **Converging** — severity-weighted defects falling. Carry on.
 - **Oscillating** — round N breaks what N-1 fixed. Two critics disagree about the anchor. Tighten the ambiguous dimension, restart the item.
 - **Flat** — no net reduction. Polish isn't the problem; the design underneath is. Escalate with a recommendation instead of spending another round.
 - **Same defect three times** — the builder can't see what the critic sees. Change the evidence, not the wording: an annotated screenshot, a profile trace, a direct diff. Then reach for `superpowers:systematic-debugging`.
@@ -164,5 +164,5 @@ Declare a round budget up front (3 per item, 5 for visual work) so hitting it is
 
 - `references/critique-rubrics.md` — dimensions, inspection technique, and "not there yet" tells across nine domains. Read the section matching the work.
 - `references/agent-prompts.md` — builder, critic, blind judge, spec-gate judge, integration critic.
-- `scripts/blind_compare.py` — randomized side-by-side, key written outside the judge's directory:
+- `scripts/blind_compare.py` — randomized head-to-head, key written outside the judge's directory:
   `python blind_compare.py --ours a.png b.png --reference ref/a.png ref/b.png --out .assay/gate/x --views empty populated`

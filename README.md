@@ -26,11 +26,11 @@ Two properties do the real work, and every rule in the skill protects one of the
 - **Nobody grades their own homework.** Whoever built it already decided it was reasonable. Whatever proves it must not be what built it, and must not see its reasoning.
 - **"Good" has to be falsifiable.** "As good as Linear's issue list" is checkable, because Linear's issue list exists and can be opened. "Polished" is not.
 
-Most of the skill is the machinery that keeps a quality loop from either running forever or stopping too early: dimensions ranked so effort lands where it matters, exclusive file ownership so parallel agents stop overwriting each other, one calibration pass before fanning out, a defined bar for what "done" means, convergence tracking that tells improvement apart from churn, and an exit test that degrades honestly when the thing you're measuring against turns out to be unreachable.
+Most of the skill is the machinery that keeps a quality loop from either running forever or stopping too early: dimensions ranked so effort lands where it matters, exclusive file ownership so parallel agents stop overwriting each other, one calibration pass before going parallel, a defined bar for what "done" means, convergence tracking that tells improvement apart from churn, and an exit test that degrades honestly when the thing you're measuring against turns out to be unreachable.
 
 Composes with the superpowers skills rather than replacing them — brainstorming and planning at the anchor, TDD and worktrees and parallel dispatch at the build, verification and code review at the proof. Its own contribution is the external anchor, the separation rule, the gate, and knowing when to stop.
 
-Includes rubric dimensions and inspection technique for nine domains, prompt templates for each agent role, and `blind_compare.py`, which builds a randomised side-by-side and writes the answer key outside the directory the judge is given.
+Includes rubric dimensions and inspection technique for nine domains, prompt templates for each agent role, and `blind_compare.py`, which builds a randomised head-to-head and writes the answer key outside the directory the judge is given.
 
 ## Writing a skill
 
