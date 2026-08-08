@@ -32,6 +32,8 @@ Every dimension below is phrased so a critic could run a test and reach a verdic
 
 **How to inspect.** Screenshot the same routes in the exemplar and yours at identical viewports. Tab through the entire interface without touching the mouse and record where focus disappears. Throttle the network and watch what the loading path actually looks like. Force error and empty states deliberately — they are where polish gaps hide, since nobody demos them. Zoom the browser to 200%. Check both colour themes.
 
+Scripted accessibility checks are the single most false-positive-prone tool in this list, so confirm each hit visually before it becomes work. Three that recur: focus styles gated on `:focus-visible` do not appear when focus is set from script rather than by real keyboard interaction; deliberately hidden text (visually-hidden labels, skip links) reads as unreadable contrast; and contrast probes that walk up the DOM for a background colour find nothing when the real backdrop is an image, a gradient, or a pseudo-element. Measure every viewport separately too — an element hidden at one width contributes nothing to that width's results and can still be broken at another.
+
 **Tells.** Spinners where skeletons belong. Empty states that are one line of grey text. Focus rings removed rather than restyled. Every card carrying the same shadow at the same elevation. Placeholder text substituting for labels. Disabled buttons with no explanation of what would enable them. Dark mode that is the light palette inverted rather than designed.
 
 ## Marketing and landing pages

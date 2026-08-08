@@ -98,6 +98,16 @@ Builders get the item, its owned paths, its dimensions, and the reference materi
 
 **The check is independent or it is worthless.** A fresh critic that never saw the build reasoning inspects the **running artifact** — runs it, screenshots it, profiles it, uses it. A diff shows intent; only the artifact shows what the user gets. If an item isn't runnable standalone, batch it with its dependencies or sequence it; never let "not runnable yet" quietly downgrade a check to a code read.
 
+### Making the check trustworthy
+
+Three things reliably corrupt a check. Handle them before spending a round on their output.
+
+**Confirm every candidate defect a second way.** Automated probes over-report, and they do it confidently. A measurement is a hypothesis until something independent agrees — a screenshot beside a computed style, a keyboard path beside a scripted one, a second tool beside the first. The cost is asymmetric: verifying costs seconds, while a false positive costs a whole round plus whatever the builder breaks "fixing" a thing that was already correct. Two specific traps worth knowing: state that only exists under real interaction usually cannot be produced by calling the API for it, and elements that are *deliberately* invisible or absent will read as failures to anything measuring naively.
+
+**Inspect wherever the thing actually renders, not where you happen to be looking.** Any artifact with variants — viewports, themes, locales, roles, feature flags, empty and populated states — hides its worst defects in the variant nobody opened. An element that is `display:none` in the one configuration you measured contributes nothing to your results and can be badly broken. Enumerate the variants the item genuinely has and check each; a clean sweep of one configuration is not a clean sweep.
+
+**Strip the harness before judging.** Dev servers, test rigs and preview tools inject their own furniture — overlay badges, debug banners, hot-reload indicators, seeded placeholder data, watermarks. A critic that has not been told will report it as a defect, every time. Either capture from a production-mode build, or tell the critic exactly what to ignore and why.
+
 ```
 VERDICT: SHIP | REWORK
 DEFECTS (most severe first):
@@ -155,7 +165,8 @@ Declare a round budget up front (3 per item, 5 for visual work) so hitting it is
 ## Failure modes
 
 - **Anchor drift** — agents rewriting the standard to match what they built.
-- **Demo-only fidelity** — the screenshotted path is immaculate, everything beside it is rough. Probe what nobody's been polishing.
+- **Demo-only fidelity** — the screenshotted path is immaculate, everything beside it is rough. Probe what nobody's been polishing, and check every variant the thing has rather than the one already open.
+- **Trusting the probe** — treating a scripted measurement as a finding. Automated checks over-report confidently; an unconfirmed hit sends a builder to "fix" something that was already correct.
 - **Reference amnesia** — by round three agents compare against their memory of the exemplar. Re-attach the real files every round.
 - **Wrong-axis polish** — ten rounds on shaders while input latency stays bad. That's what ranking the dimensions is for.
 - **Weight inflation** — running Heavy on work that needed Light. Expensive theatre, and it trains the user to stop trusting the method.

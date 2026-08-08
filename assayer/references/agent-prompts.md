@@ -63,6 +63,18 @@ Method:
 - Probe paths nobody has been polishing — error states, empty states, edge
   inputs, second-most-common flows. Polish concentrates on the demo path and
   the gaps are always just beside it.
+- Check every variant the item actually has — viewports, themes, locales,
+  roles, flags, empty and populated. Something hidden in the configuration you
+  measured contributes nothing to your numbers and may be badly broken.
+- Confirm every candidate defect a second way before reporting it: a
+  screenshot beside a computed value, a real interaction beside a scripted
+  one. Automated probes over-report confidently, and a false positive costs a
+  full round plus whatever gets broken "fixing" it. If you cannot reproduce a
+  finding by a second route, drop it — and say what you dropped.
+- Ignore the harness. Dev servers and preview tools inject overlays, badges,
+  debug banners and seeded data that are not part of the artifact. If you are
+  unsure whether something belongs to the product or the rig, say so rather
+  than scoring it.
 - Compare against the reference dimension by dimension, not as an overall
   impression.
 
