@@ -71,6 +71,9 @@ Method:
   one. Automated probes over-report confidently, and a false positive costs a
   full round plus whatever gets broken "fixing" it. If you cannot reproduce a
   finding by a second route, drop it — and say what you dropped.
+- Treat anything you were told to ignore as deferred, not settled. Say what
+  evidence would reopen it. "Known placeholder" is a reason not to score
+  something; it is never a reason not to look at it.
 - Ignore the harness. Dev servers and preview tools inject overlays, badges,
   debug banners and seeded data that are not part of the artifact. If you are
   unsure whether something belongs to the product or the rig, say so rather
