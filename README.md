@@ -17,7 +17,30 @@ Symlinking rather than copying means `git pull` updates the installed skill in p
 
 ### [assayer](assayer/)
 
-**The short version.** Say you want to bake a cake as good as the one from the bakery. Most people bake one, taste it, and decide it's lovely — but they baked it, so of course they like it. Assayer makes you do it the other way round: put the bakery cake on the table *first* and write down what makes it good (very lemony, squishy not dry, thin icing). Then bake. Then cut a slice of each, hide which is which, and hand both to someone who didn't bake either one. If they pick the bakery cake, ask why — "yours is dry" is your list. Bake again. You're done when they can't tell which is which.
+> **You can't mark your own homework — so Assayer gets someone else to.**
+
+#### What it delivers
+
+It isn't a builder in its own right. It's *how* the building happens, so the range is anything where "good" can be written down and checked. What it adds on top of the work is a standard agreed before you start, and an independent check at the end by something that didn't do the building.
+
+| What you get | What the independent check actually does |
+| --- | --- |
+| **A website**, built new or rebuilt | Opens it, uses it, screenshots it at every size and font setting |
+| **An accessibility pass** before shipping | Tabs through with a keyboard, measures every colour against WCAG |
+| **A speed pass** on something slow | Measures on a throttled phone, cold — not on your dev machine |
+| **Documentation** — a guide, README, API reference | Hands it to an agent that has never seen your product and watches it follow the steps literally. Every sample it had to repair is a defect |
+| **A report or a deck** | Checks every number against its source, and whether the argument survives reading only the headings |
+| **A data pipeline** | Runs it twice and diffs, then feeds it broken rows to see whether it fails loudly or quietly writes something wrong |
+| **An API or CLI** | Deliberately misuses it and reads the errors — that one test discriminates more than any other |
+| **A redesign matching a competitor** | Puts yours and theirs side by side, shuffled, and asks a judge who doesn't know which is which |
+
+Two real results from the first two runs: on a golf directory it found four call-to-action buttons at less than half the legally required contrast, and a focus ring that had been removed rather than restyled. On a restaurant site it found the main food photograph rendering at zero pixels on mobile, and a hero image taking eleven seconds to paint on a phone connection — neither of which the person who built it had noticed, because that person was me.
+
+Where it doesn't help: anything with no checkable standard. "Write me something creative" has nothing to measure against, so it is ordinary work with extra ceremony.
+
+#### Why it works
+
+Say you want to bake a cake as good as the one from the bakery. Most people bake one, taste it, and decide it's lovely — but they baked it, so of course they like it. Assayer makes you do it the other way round: put the bakery cake on the table *first* and write down what makes it good (very lemony, squishy not dry, thin icing). Then bake. Then cut a slice of each, hide which is which, and hand both to someone who didn't bake either one. If they pick the bakery cake, ask why — "yours is dry" is your list. Bake again. You're done when they can't tell which is which.
 
 Writing the standard down first is the part people skip, and it's the part that matters: a standard written afterwards just describes whatever you happened to produce.
 
