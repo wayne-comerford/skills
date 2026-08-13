@@ -19,6 +19,23 @@ Symlinking rather than copying means `git pull` updates the installed skill in p
 
 > **You can't mark your own homework — so Assayer gets someone else to.**
 
+You just built something and it looks fine to you. It looks fine *because* you built it: every
+choice in there is one you already decided was reasonable. That isn't a character flaw, it's how
+building works — and it's why you can't proofread your own writing either.
+
+Assayer hands the finished thing to a fresh agent that never saw your reasoning, and has it
+**open the thing and use it** — click it, run it, measure it, at every screen size — rather than
+read the diff and agree with you. Before that, it makes you write down what "good" means here, in
+terms someone else could check. That's the whole method.
+
+On its first two real runs it found four call-to-action buttons at half the legally required
+contrast, a photograph rendering at zero pixels on mobile, and a hero image taking eleven seconds
+to load on a phone. All three were missed by the person who built them, who had already declared
+the work clean.
+
+It scales down. A typo fix gets the same three steps in about ten seconds, not eight agents. Say
+"keep it light" and it stops.
+
 #### What it delivers
 
 It isn't a builder in its own right. It's *how* the building happens, so the range is anything where "good" can be written down and checked. What it adds on top of the work is a standard agreed before you start, and an independent check at the end by something that didn't do the building.
