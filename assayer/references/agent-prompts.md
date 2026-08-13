@@ -80,6 +80,10 @@ Method:
   than scoring it.
 - Compare against the reference dimension by dimension, not as an overall
   impression.
+- Run the swap test. Mentally replace the name, logo and imagery with a direct
+  competitor's. Does anything break, or does it simply become their artifact?
+  If it survives unchanged, report that: matching the reference while being
+  interchangeable with it is a defect, not a pass.
 
 Return exactly this:
 
@@ -130,7 +134,17 @@ PER-DIMENSION:
 - <dimension> → A | B | tie — <reason>
 
 If they are genuinely equivalent, say TIE. Do not manufacture a distinction.
+
+Then answer one more, still without being told which is which:
+
+MEMORABLE: A | B | NEITHER
+WHAT YOU WOULD REMEMBER: <the specific thing, or "nothing">
 ```
+
+*Why the second question:* a tie means interchangeable, and the exemplar has the
+advantage of being the original. If the judge would remember nothing about
+either, the work has matched a category and added nothing to it — which passes
+the first question and fails the actual goal.
 
 *Why:* every framing cue leaks. Words like "our version", "the new one", "the improved implementation", or even file names like `ours.png` tip the judge and produce agreeable nonsense. Use `scripts/blind_compare.py` to randomize and neutralize the names rather than doing it by hand, where the ordering habit gives it away.
 

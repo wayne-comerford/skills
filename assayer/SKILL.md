@@ -1,6 +1,6 @@
 ---
 name: assayer
-description: The default working method for every substantive request — anchor the ask to a standard, build against it, then prove it with an independent check the builder never touched. Use this on essentially any real task: building or changing a feature, writing or fixing code, producing docs, designs, reports, data work, or research. Especially load it when the user names a quality bar ("as good as Linear", "match Stripe's docs", "better than our competitor's"), asks for work that is world-class, production-grade, pixel-perfect or flawless, asks to run subagents in parallel, iterate until it holds up, or wants an unsparing reviewer that will not sign off early. Scales from a one-line verification on a small fix to full parallel dispatch with a blind comparison gate, so it fits trivial and ambitious work alike. Composes with the superpowers skills rather than replacing them.
+description: Use when building, rebuilding or improving anything where quality matters and "good" can be checked — sites, UI, code, docs, designs, reports, data work. Especially when the user names something to match or beat ("as good as Linear", "better than our competitor's"), asks for work that is world-class, production-grade or flawless, wants an unsparing reviewer, asks to run subagents in parallel or iterate until it holds up, or when a first attempt has come back looking generic and interchangeable.
 ---
 
 # Assayer
@@ -40,13 +40,13 @@ When it's genuinely ambiguous, go one step lighter and say so — an under-weigh
 
 ## Working with superpowers
 
-These skills already do most of the build and verify machinery well. Call them; don't reimplement them. Assayer's contribution is what they don't cover: the external anchor, the separation rule, the gate, and convergence tracking.
+These skills already do most of the build and verify machinery well. Call them; don't reimplement them. Invoke by the bare names below; some installs namespace them as `superpowers:<name>`, so if a bare name does not resolve, check the available-skills list rather than assuming the skill is missing. Assayer's contribution is what they don't cover: the external anchor, the separation rule, the gate, and convergence tracking.
 
 | Beat | Reach for |
 | --- | --- |
-| **Anchor** | `superpowers:brainstorming` for anything open-ended or creative — it belongs *here*, before a line is written, and it is where the exemplar and dimensions get pinned down. `superpowers:writing-plans` once the shape is agreed and the task is multi-step. |
-| **Build** | `superpowers:test-driven-development` for code — tests are an anchor you can run. `superpowers:using-git-worktrees` for isolation. `superpowers:dispatching-parallel-agents` and `superpowers:subagent-driven-development` for parallel dispatch. `superpowers:executing-plans` when a written plan exists. `superpowers:systematic-debugging` the moment a defect survives two rounds. |
-| **Prove** | `superpowers:verification-before-completion` — same principle as this skill, evidence before assertions; run it before any completion claim. `superpowers:requesting-code-review` and `superpowers:receiving-code-review` for code. `superpowers:finishing-a-development-branch` to integrate. |
+| **Anchor** | `brainstorming` for anything open-ended or creative — it belongs *here*, before a line is written, and it is where the exemplar and dimensions get pinned down. `writing-plans` once the shape is agreed and the task is multi-step. |
+| **Build** | `test-driven-development` for code — tests are an anchor you can run. `using-git-worktrees` for isolation. `dispatching-parallel-agents` and `subagent-driven-development` for parallel dispatch. `executing-plans` when a written plan exists. `systematic-debugging` the moment a defect survives two rounds. |
+| **Prove** | `verification-before-completion` — same principle as this skill, evidence before assertions; run it before any completion claim. `requesting-code-review` and `receiving-code-review` for code. `finishing-a-development-branch` to integrate. |
 
 Where they overlap, the superpowers skill wins on mechanics and Assayer wins on standard-setting: brainstorming decides *what* to build, the anchor decides *what good looks like*, and neither substitutes for the other.
 
@@ -60,6 +60,14 @@ Where they overlap, the superpowers skill wins on mechanics and Assayer wins on 
 > Strong: "Every state transition is 120–200ms, ease-out, no layout shift, 60fps on a 4x-throttled CPU."
 
 **At Heavy, name an exemplar** — one to three real artifacts someone can open. Not "a modern SaaS dashboard" but "Linear's issue list: the density, the keyboard model, how it stays responsive at 5,000 rows." If the user said "world-class" without naming anything, propose two or three and let them pick; that choice says more than any amount of adjective-gathering. Then **rank the dimensions**, because the ranking decides where rounds get spent — otherwise the loop polishes shaders while input latency stays terrible.
+
+**The exemplar is the floor, not the target.** Matching it means you have caught up, which is not the same as having made something worth choosing. Left alone, an agent asked to match a named reference produces the *category average* — the design every business of that type already has. It will look competent and it will be interchangeable, which for a client is usually worse than looking rough.
+
+The mechanism is specific and worth recognising, because it is easy to miss while it happens: **the facts that make the subject itself distinct get spent on decoration rather than structure.** A bakery brief naming a wood-fired oven, a communal table and a Saturday queue produces a site that photographs those three things and is otherwise identical to every other bakery site — the facts became image captions instead of design decisions.
+
+So name, at anchor time, **at least one thing that is true of this subject and of almost nothing else, and decide what it changes structurally.** Not what it looks like in a photograph — what it changes about the layout, the ordering, the interaction, the thing the page is built around. A restaurant whose regulars appear on a wall of fame should have that wall in the page structure, not a gallery captioned "our customers".
+
+*Check — the swap test:* replace the name, logo and photography with a competitor's. Does anything break, or does it simply become their site? If it works unchanged, you built a template and the reference beat you while you were matching it. A fresh judge should be able to name the distinguishing feature after ten seconds without being told what to look for.
 
 **Establish how close you can actually get to the exemplar.** This decides which gate exists in beat 3:
 
@@ -147,12 +155,13 @@ Passing means the judge picks yours or genuinely can't tell. A confident pick fo
 
 Due diligence is mostly a set of refusals. These hold at every weight.
 
-- **No completion claim without evidence.** "Tests pass" means you ran them and read the output. Run `superpowers:verification-before-completion` before saying done.
+- **No completion claim without evidence.** "Tests pass" means you ran them and read the output. Run `verification-before-completion` before saying done.
 - **No self-certification.** Whatever proves it must not be what built it. At Light that means at minimum re-reading against the anchor with the build reasoning set aside; at Standard and above it means a separate agent.
 - **No claimed parity you can't demonstrate.** A spec gate shows compliance, not parity. *"Meets every line of the spec we derived from published teardowns; no direct comparison was possible"* is a real result. *"Indistinguishable from the real thing"* — when nobody ever managed to see the real thing — is not.
 - **No inventing the reference.** If you can't reach the exemplar, say which tier you're on. Never reconstruct it and treat the reconstruction as external.
 - **No scope deletion.** Removing a hard requirement so the rest looks clean is a failed round, not a passed one. A stated blocker is a useful result; a quietly dropped feature is not.
 - **No silent anchor changes.** The standard is fixed at beat 1. Changing it is a decision you put to the user mid-flight, not an edit.
+- **No category defaults dressed as decisions.** Every domain has a house style an agent will reach for unprompted — the same off-white, the same serif-and-grotesk pairing, the same three-card row, the same hero-with-one-line-of-copy. Reaching for it is not a decision, it is the absence of one. Any choice you cannot trace to something specific about *this* subject or *this* standard is a default, and defaults are what make the result generic. State the reason or make a different choice.
 - **Say what you skipped.** If part of the ask was left out or a check couldn't run, name it. Scaling the work down is the user's call.
 - **A documented compromise is not an exempt one.** Writing down "this is a known placeholder / deferred / out of scope" is the honest move, and it quietly creates a blind spot: the note is read as settled, reviewers are told not to raise it, and nobody looks again. Every recorded compromise needs the condition that would reopen it — what would have to become true, or what you never actually checked. Never tell a critic to ignore something without also saying what evidence would change that instruction. The mechanism you use to be honest about a gap is exactly the mechanism that can hide it.
 
@@ -163,7 +172,7 @@ Track per round in `.assay/progress.md`:
 - **Converging** — severity-weighted defects falling. Carry on.
 - **Oscillating** — round N breaks what N-1 fixed. Two critics disagree about the anchor. Tighten the ambiguous dimension, restart the item.
 - **Flat** — no net reduction. Polish isn't the problem; the design underneath is. Escalate with a recommendation instead of spending another round.
-- **Same defect three times** — the builder can't see what the critic sees. Change the evidence, not the wording: an annotated screenshot, a profile trace, a direct diff. Then reach for `superpowers:systematic-debugging`.
+- **Same defect three times** — the builder can't see what the critic sees. Change the evidence, not the wording: an annotated screenshot, a profile trace, a direct diff. Then reach for `systematic-debugging`.
 
 Declare a round budget up front (3 per item, 5 for visual work) so hitting it is a checkpoint rather than a surprise. When it's hit without a SHIP, say what passed, what didn't, and what closing the gap takes. *"Three of four items match; lighting is still visibly behind, here's why"* beats a claim of perfection the user disproves in ten seconds.
 
@@ -176,6 +185,7 @@ Declare a round budget up front (3 per item, 5 for visual work) so hitting it is
 - **Trusting the probe** — treating a scripted measurement as a finding. Automated checks over-report confidently; an unconfirmed hit sends a builder to "fix" something that was already correct.
 - **Reference amnesia** — by round three agents compare against their memory of the exemplar. Re-attach the real files every round.
 - **Wrong-axis polish** — ten rounds on shaders while input latency stays bad. That's what ranking the dimensions is for.
+- **Category average** — matching the reference so faithfully that the result is the design every business of that type already has. Passing the gate and being forgettable are entirely compatible.
 - **Weight inflation** — running Heavy on work that needed Light. Expensive theatre, and it trains the user to stop trusting the method.
 
 ## Files
