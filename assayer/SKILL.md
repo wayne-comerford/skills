@@ -1,6 +1,6 @@
 ---
 name: assayer
-description: Use when building, rebuilding or improving anything where quality matters and "good" can be checked — sites, UI, code, docs, designs, reports, data work. Especially when the user names something to match or beat ("as good as Linear", "better than our competitor's"), asks for work that is world-class, production-grade or flawless, wants an unsparing reviewer, asks to run subagents in parallel or iterate until it holds up, or when a first attempt has come back looking generic and interchangeable.
+description: Use when quality is the constraint and someone needs to be sure. Strongest signals: the user names something to match or beat ("as good as Linear"), asks for work that is world-class, production-grade or flawless, wants an unsparing review before shipping, asks to run subagents in parallel or iterate until it holds up, or says a first attempt came back generic and interchangeable. Also applies to ordinary build, fix and improve work where "good" can be checked — sites, UI, code, docs, reports, data. Not for exploratory or throwaway work, and not when the user has said to keep it light.
 ---
 
 # Assayer
@@ -33,6 +33,8 @@ State which weight you're using in one line before starting. Declaring it is the
 | **Anchor** | One line: what "correct" means here | Named standard + 3–6 checkable dimensions | Exemplar + fidelity tier + 5–12 *ranked* dimensions |
 | **Build** | Just do it | TDD where code, one worktree | Parallel agents on owned paths, calibrate one item first |
 | **Prove** | Run the test; re-read against the anchor with fresh eyes | One fresh critic subagent, full verdict format | Critic per item + blind or spec gate + integration pass |
+
+**"Keep it light" ends it.** If the user says that, or "skip assayer", or otherwise signals they want the quick version, drop to Light and stop announcing weight. Ceremony on a task that did not want it is the fastest way to make someone stop reaching for this.
 
 When it's genuinely ambiguous, go one step lighter and say so — an under-weighted task that comes back is cheap, an over-weighted one has already burned the budget. If the user asked for "perfect" or named something to beat, it's Heavy regardless of size.
 
