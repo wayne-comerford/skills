@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nova — Ship work faster, together</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'] },
+        colors: {
+          ink: '#05050a',
+        },
+        animation: {
+          'fade-up': 'fadeUp 0.8s ease forwards',
+          'float': 'float 6s ease-in-out infinite',
+          'float-slow': 'float 9s ease-in-out infinite',
+        },
+        keyframes: {
+          fadeUp: {
+            '0%': { opacity: 0, transform: 'translateY(24px)' },
+            '100%': { opacity: 1, transform: 'translateY(0)' },
+          },
+          float: {
+            '0%, 100%': { transform: 'translateY(0px)' },
+            '50%': { transform: 'translateY(-18px)' },
+          },
+        },
+      },
+    },
+  }
+</script>
+<style>
+  body { background-color: #05050a; }
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .radial-fade {
+    -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, black 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, black 40%, transparent 100%);
+  }
+  .text-gradient {
+    background: linear-gradient(90deg, #a78bfa 0%, #818cf8 45%, #22d3ee 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .glass {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+  }
+  .card-hover {
+    transition: transform 0.35s cubic-bezier(.2,.8,.2,1), border-color 0.35s, background 0.35s;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    border-color: rgba(167,139,250,0.4);
+    background: rgba(255,255,255,0.06);
+  }
+  .glow-btn {
+    box-shadow: 0 0 0 0 rgba(129,140,248,0.5);
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+  }
+  .glow-btn:hover {
+    box-shadow: 0 8px 30px -4px rgba(129,140,248,0.6);
+    transform: translateY(-2px);
+  }
+  .reveal { opacity: 0; }
+  .reveal.in-view { animation: fadeUp 0.8s ease forwards; }
+  ::selection { background: #818cf8; color: #05050a; }
+</style>
+</head>
+<body class="font-sans text-slate-200 antialiased overflow-x-hidden">
+
+  <!-- Background glow -->
+  <div class="fixed inset-0 -z-10 bg-grid radial-fade"></div>
+  <div class="fixed -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-indigo-600/30 blur-[140px] rounded-full -z-10"></div>
+  <div class="fixed top-[30%] -right-40 w-[500px] h-[500px] bg-cyan-500/20 blur-[130px] rounded-full -z-10"></div>
+
+  <!-- Nav -->
+  <header class="fixed top-0 inset-x-0 z-50">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <nav class="mt-4 flex items-center justify-between glass rounded-2xl px-5 py-3">
+        <a href="#" class="flex items-center gap-2 font-extrabold text-lg tracking-tight text-white">
+          <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-cyan-400 text-ink text-sm font-black">N</span>
+          Nova
+        </a>
+        <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+          <a href="#features" class="hover:text-white transition-colors">Features</a>
+          <a href="#workflow" class="hover:text-white transition-colors">How it works</a>
+          <a href="#pricing" class="hover:text-white transition-colors">Pricing</a>
+          <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+        </div>
+        <div class="hidden md:flex items-center gap-3">
+          <a href="#" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Sign in</a>
+          <a href="#pricing" class="glow-btn text-sm font-semibold bg-white text-ink px-4 py-2 rounded-xl hover:bg-slate-100 transition-colors">Start free trial</a>
+        </div>
+        <button id="menuBtn" class="md:hidden text-slate-200" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </nav>
+      <div id="mobileMenu" class="hidden md:hidden mt-2 glass rounded-2xl px-5 py-4 flex flex-col gap-4 text-sm font-medium text-slate-300">
+        <a href="#features" class="hover:text-white transition-colors">Features</a>
+        <a href="#workflow" class="hover:text-white transition-colors">How it works</a>
+        <a href="#pricing" class="hover:text-white transition-colors">Pricing</a>
+        <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+        <hr class="border-white/10" />
+        <a href="#" class="hover:text-white transition-colors">Sign in</a>
+        <a href="#pricing" class="glow-btn text-center font-semibold bg-white text-ink px-4 py-2 rounded-xl">Start free trial</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative pt-44 pb-28 px-6 lg:px-8">
+    <div class="mx-auto max-w-5xl text-center">
+      <div class="reveal in-view inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-medium text-slate-300 mb-8">
+        <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        Now live: real-time collaboration
+      </div>
+      <h1 class="reveal in-view text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.05]" style="animation-delay:.05s">
+        Ship your best work,
+        <span class="block text-gradient">without the busywork.</span>
+      </h1>
+      <p class="reveal in-view mt-6 text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto" style="animation-delay:.15s">
+        Nova brings your team's projects, docs, and conversations into one fast, focused workspace — so you spend less time managing work and more time doing it.
+      </p>
+      <div class="reveal in-view mt-10 flex flex-col sm:flex-row items-center justify-center gap-4" style="animation-delay:.25s">
+        <a href="#pricing" class="glow-btn w-full sm:w-auto text-center font-semibold bg-white text-ink px-7 py-3.5 rounded-xl hover:bg-slate-100 transition-colors">
+          Start your free trial
+        </a>
+        <a href="#workflow" class="w-full sm:w-auto text-center font-semibold text-slate-200 border border-white/15 px-7 py-3.5 rounded-xl hover:bg-white/5 transition-colors">
+          Watch demo &nbsp;▶
+        </a>
+      </div>
+      <p class="reveal in-view mt-5 text-xs text-slate-500" style="animation-delay:.3s">No credit card required · 14-day free trial · Cancel anytime</p>
+    </div>
+
+    <!-- Product mockup -->
+    <div class="reveal in-view mx-auto max-w-5xl mt-20" style="animation-delay:.35s">
+      <div class="relative rounded-2xl glass p-2 shadow-2xl shadow-indigo-950/50">
+        <div class="rounded-xl overflow-hidden border border-white/10 bg-slate-950">
+          <div class="flex items-center gap-1.5 px-4 py-3 border-b border-white/10">
+            <span class="h-3 w-3 rounded-full bg-red-400/70"></span>
+            <span class="h-3 w-3 rounded-full bg-yellow-400/70"></span>
+            <span class="h-3 w-3 rounded-full bg-green-400/70"></span>
+            <span class="ml-4 text-xs text-slate-500">app.nova.so/dashboard</span>
+          </div>
+          <div class="grid grid-cols-4 gap-px bg-white/5 p-4">
+            <div class="col-span-1 space-y-2">
+              <div class="h-8 rounded-lg bg-gradient-to-r from-violet-500/30 to-transparent"></div>
+              <div class="h-3 w-3/4 rounded bg-white/10"></div>
+              <div class="h-3 w-2/3 rounded bg-white/10"></div>
+              <div class="h-3 w-1/2 rounded bg-white/10"></div>
+              <div class="h-3 w-2/3 rounded bg-white/10"></div>
+            </div>
+            <div class="col-span-3 grid grid-cols-3 gap-3 p-2">
+              <div class="h-28 rounded-lg glass animate-float"></div>
+              <div class="h-28 rounded-lg glass animate-float-slow"></div>
+              <div class="h-28 rounded-lg glass animate-float"></div>
+              <div class="h-20 rounded-lg glass col-span-2"></div>
+              <div class="h-20 rounded-lg bg-gradient-to-br from-cyan-500/20 to-violet-500/20 border border-white/10"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logo cloud -->
+  <section class="px-6 lg:px-8 pb-24">
+    <div class="mx-auto max-w-6xl">
+      <p class="text-center text-xs font-semibold tracking-widest text-slate-500 uppercase mb-8">Trusted by fast-moving teams at</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 items-center opacity-70">
+        <div class="text-center font-bold text-slate-400 text-lg">Fluxion</div>
+        <div class="text-center font-bold text-slate-400 text-lg">Orbital</div>
+        <div class="text-center font-bold text-slate-400 text-lg">Vertex</div>
+        <div class="text-center font-bold text-slate-400 text-lg">Northwind</div>
+        <div class="text-center font-bold text-slate-400 text-lg">Halcyon</div>
+        <div class="text-center font-bold text-slate-400 text-lg">Pioneer</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="px-6 lg:px-8 py-24 border-t border-white/5">
+    <div class="mx-auto max-w-6xl">
+      <div class="max-w-2xl mx-auto text-center reveal">
+        <span class="text-sm font-semibold text-violet-400">Features</span>
+        <h2 class="mt-3 text-3xl sm:text-4xl font-bold text-white tracking-tight">Everything your team needs, nothing it doesn't</h2>
+        <p class="mt-4 text-slate-400">Built for speed and clarity — Nova cuts the clutter so your team can focus on the work that matters.</p>
+      </div>
+
+      <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Feature card -->
+        <div class="reveal card-hover glass rounded-2xl p-6">
+          <div class="h-11 w-11 rounded-xl bg-violet-500/15 flex items-center justify-center mb-5">
+            <svg class="h-5 w-5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+          </div>
+          <h3 class="font-semibold text-white text-lg">Real-time collaboration</h3>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">Edit docs, boards, and timelines together with your team, live — no refresh, no conflicts, no version chaos.</p>
+        </div>
+        <div class="reveal card-hover glass rounded-2xl p-6">
+          <div class="h-11 w-11 rounded-xl bg-cyan-500/15 flex items-center justify-center mb-5">
+            <svg class="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+          </div>
+          <h3 class="font-semibold text-white text-lg">Automated workflows</h3>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">Set up triggers once and let Nova handle the handoffs, reminders, and status updates for you.</p>
+        </div>
+        <div class="reveal card-hover glass rounded-2xl p-6">
+          <div class="h-11 w-11 rounded-xl bg-emerald-500/15 flex items-center justify-center mb-5">
+            <svg class="h-5 w-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          </div>
+          <h3 class="font-semibold text-white text-lg">Enterprise-grade security</h3>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">SOC 2 Type II, SSO, and granular permissions built in from day one — audited, not bolted on.</p>
+        </div>
+        <div class="reveal card-hover glass rounded-2xl p-6">
+          <div class="h-11 w-11 rounded-xl bg-amber-500/15 flex items-center justify-center mb-5">
+            <svg class="h-5 w-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" /><path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" /></svg>
+          </div>
+          <h3 class="font-semibold text-white text-lg">Insights that matter</h3>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">Live dashboards surface bottlenecks and progress automatically — no more manual status meetings.</p>
+        </div>
+        <div class="reveal card-hover glass rounded-2xl p-6">
+          <div class="h-11 w-11 rounded-xl bg-rose-500/15 flex items-center justify-center mb-5">
+            <svg class="h-5 w-5 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+          </div>
+          <h3 class="font-semibold text-white text-lg">Two-way integrations</h3>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">Connect Slack, GitHub, Figma, and 40+ tools your team already uses — keep everything in sync.</p>
+        </div>
+        <div class="reveal card-hover glass rounded-2xl p-6">
+          <div class="h-11 w-11 rounded-xl bg-indigo-500/15 flex items-center justify-center mb-5">
+            <svg class="h-5 w-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          </div>
+          <h3 class="font-semibold text-white text-lg">24/5 human support</h3>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">Talk to a real person, fast. Average first response time under four minutes, every weekday.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="workflow" class="px-6 lg:px-8 py-24 border-t border-white/5">
+    <div class="mx-auto max-w-6xl">
+      <div class="max-w-2xl mx-auto text-center reveal">
+        <span class="text-sm font-semibold text-cyan-400">How it works</span>
+        <h2 class="mt-3 text-3xl sm:text-4xl font-bold text-white tracking-tight">Up and running in minutes</h2>
+        <p class="mt-4 text-slate-400">No lengthy onboarding calls. No migration headaches. Just import and go.</p>
+      </div>
+      <div class="mt-16 grid md:grid-cols-3 gap-8">
+        <div class="reveal relative">
+          <div class="text-6xl font-black text-white/10">01</div>
+          <h3 class="mt-2 font-semibold text-white text-lg">Connect your tools</h3>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">Import from Notion, Asana, or Trello in one click, or start from a blank workspace.</p>
+        </div>
+        <div class="reveal relative" style="animation-delay:.1s">
+          <div class="text-6xl font-black text-white/10">02</div>
+          <h3 class="mt-2 font-semibold text-white text-lg">Invite your team</h3>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">Set roles and permissions in seconds. Everyone sees exactly what they need to.</p>
+        </div>
+        <div class="reveal relative" style="animation-delay:.2s">
+          <div class="text-6xl font-black text-white/10">03</div>
+          <h3 class="mt-2 font-semibold text-white text-lg">Automate the busywork</h3>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">Turn on workflows for status updates, handoffs, and reminders — then get back to real work.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="px-6 lg:px-8 py-20 border-t border-white/5">
+    <div class="mx-auto max-w-6xl grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div class="reveal">
+        <div class="text-4xl font-extrabold text-white">12,400+</div>
+        <div class="mt-1 text-sm text-slate-500">Teams onboard</div>
+      </div>
+      <div class="reveal" style="animation-delay:.05s">
+        <div class="text-4xl font-extrabold text-white">4.9/5</div>
+        <div class="mt-1 text-sm text-slate-500">Average rating</div>
+      </div>
+      <div class="reveal" style="animation-delay:.1s">
+        <div class="text-4xl font-extrabold text-white">38%</div>
+        <div class="mt-1 text-sm text-slate-500">Faster delivery</div>
+      </div>
+      <div class="reveal" style="animation-delay:.15s">
+        <div class="text-4xl font-extrabold text-white">99.98%</div>
+        <div class="mt-1 text-sm text-slate-500">Uptime SLA</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="px-6 lg:px-8 py-24 border-t border-white/5">
+    <div class="mx-auto max-w-3xl text-center reveal">
+      <svg class="mx-auto h-8 w-8 text-violet-400/60" fill="currentColor" viewBox="0 0 32 32"><path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"/></svg>
+      <p class="mt-6 text-2xl font-medium text-white leading-snug">
+        "We replaced four tools with Nova and cut our weekly status meetings in half. It's the first workspace our whole team actually enjoys using."
+      </p>
+      <div class="mt-6 flex items-center justify-center gap-3">
+        <div class="h-11 w-11 rounded-full bg-gradient-to-br from-violet-500 to-cyan-400"></div>
+        <div class="text-left">
+          <div class="font-semibold text-white text-sm">Maya Okonkwo</div>
+          <div class="text-slate-500 text-xs">Head of Product, Fluxion</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="px-6 lg:px-8 py-24 border-t border-white/5">
+    <div class="mx-auto max-w-6xl">
+      <div class="max-w-2xl mx-auto text-center reveal">
+        <span class="text-sm font-semibold text-violet-400">Pricing</span>
+        <h2 class="mt-3 text-3xl sm:text-4xl font-bold text-white tracking-tight">Simple pricing that scales with you</h2>
+        <p class="mt-4 text-slate-400">Start free. Upgrade when your team is ready. No hidden fees, ever.</p>
+      </div>
+
+      <div class="mt-16 grid lg:grid-cols-3 gap-6 items-start">
+        <!-- Starter -->
+        <div class="reveal glass rounded-2xl p-8">
+          <h3 class="font-semibold text-white text-lg">Starter</h3>
+          <p class="mt-1 text-sm text-slate-400">For individuals and small teams getting started.</p>
+          <div class="mt-6 flex items-baseline gap-1">
+            <span class="text-4xl font-extrabold text-white">$0</span>
+            <span class="text-slate-500 text-sm">/ month</span>
+          </div>
+          <a href="#" class="mt-6 block text-center font-semibold border border-white/15 text-white px-5 py-3 rounded-xl hover:bg-white/5 transition-colors">Get started</a>
+          <ul class="mt-8 space-y-3 text-sm text-slate-400">
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span> Up to 5 members</li>
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span> 3 projects</li>
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span> Basic integrations</li>
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span> 1GB storage</li>
+          </ul>
+        </div>
+
+        <!-- Pro (highlighted) -->
+        <div class="reveal relative rounded-2xl p-8 bg-gradient-to-b from-violet-600/20 to-cyan-500/10 border border-violet-400/40 shadow-2xl shadow-violet-950/50 lg:-mt-4 lg:mb-4" style="animation-delay:.1s">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold bg-gradient-to-r from-violet-500 to-cyan-400 text-ink px-3 py-1 rounded-full">Most popular</div>
+          <h3 class="font-semibold text-white text-lg">Pro</h3>
+          <p class="mt-1 text-sm text-slate-300">For growing teams that need to move fast.</p>
+          <div class="mt-6 flex items-baseline gap-1">
+            <span class="text-4xl font-extrabold text-white">$24</span>
+            <span class="text-slate-400 text-sm">/ user / month</span>
+          </div>
+          <a href="#" class="glow-btn mt-6 block text-center font-semibold bg-white text-ink px-5 py-3 rounded-xl hover:bg-slate-100 transition-colors">Start free trial</a>
+          <ul class="mt-8 space-y-3 text-sm text-slate-300">
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span> Unlimited members</li>
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span> Unlimited projects</li>
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span> Advanced automations</li>
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span> 100GB storage</li>
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span> Priority support</li>
+          </ul>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="reveal glass rounded-2xl p-8" style="animation-delay:.2s">
+          <h3 class="font-semibold text-white text-lg">Enterprise</h3>
+          <p class="mt-1 text-sm text-slate-400">For organizations with advanced needs.</p>
+          <div class="mt-6 flex items-baseline gap-1">
+            <span class="text-4xl font-extrabold text-white">Custom</span>
+          </div>
+          <a href="#" class="mt-6 block text-center font-semibold border border-white/15 text-white px-5 py-3 rounded-xl hover:bg-white/5 transition-colors">Contact sales</a>
+          <ul class="mt-8 space-y-3 text-sm text-slate-400">
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span> SSO &amp; SCIM</li>
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span> Dedicated support</li>
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span> Custom contracts</li>
+            <li class="flex gap-2"><span class="text-emerald-400">✓</span> Unlimited storage</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="px-6 lg:px-8 py-24 border-t border-white/5">
+    <div class="mx-auto max-w-3xl">
+      <div class="text-center reveal">
+        <span class="text-sm font-semibold text-cyan-400">FAQ</span>
+        <h2 class="mt-3 text-3xl sm:text-4xl font-bold text-white tracking-tight">Frequently asked questions</h2>
+      </div>
+      <div class="mt-12 space-y-3" id="faqList">
+        <div class="reveal glass rounded-xl overflow-hidden">
+          <button class="faq-btn w-full flex items-center justify-between text-left px-6 py-5 font-medium text-white">
+            Is there a free trial?
+            <svg class="faq-icon h-4 w-4 text-slate-400 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+          </button>
+          <div class="faq-panel hidden px-6 pb-5 text-sm text-slate-400 leading-relaxed">
+            Yes — every plan starts with a 14-day free trial, no credit card required. You can upgrade, downgrade, or cancel at any time.
+          </div>
+        </div>
+        <div class="reveal glass rounded-xl overflow-hidden">
+          <button class="faq-btn w-full flex items-center justify-between text-left px-6 py-5 font-medium text-white">
+            Can I import data from other tools?
+            <svg class="faq-icon h-4 w-4 text-slate-400 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+          </button>
+          <div class="faq-panel hidden px-6 pb-5 text-sm text-slate-400 leading-relaxed">
+            Yes. Nova supports one-click imports from Notion, Asana, Trello, and CSV, plus a REST API for custom migrations.
+          </div>
+        </div>
+        <div class="reveal glass rounded-xl overflow-hidden">
+          <button class="faq-btn w-full flex items-center justify-between text-left px-6 py-5 font-medium text-white">
+            What happens to my data if I cancel?
+            <svg class="faq-icon h-4 w-4 text-slate-400 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+          </button>
+          <div class="faq-panel hidden px-6 pb-5 text-sm text-slate-400 leading-relaxed">
+            You can export all of your data at any time in open formats (CSV, Markdown, JSON). We retain your data for 30 days after cancellation in case you change your mind.
+          </div>
+        </div>
+        <div class="reveal glass rounded-xl overflow-hidden">
+          <button class="faq-btn w-full flex items-center justify-between text-left px-6 py-5 font-medium text-white">
+            Do you offer discounts for nonprofits or startups?
+            <svg class="faq-icon h-4 w-4 text-slate-400 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+          </button>
+          <div class="faq-panel hidden px-6 pb-5 text-sm text-slate-400 leading-relaxed">
+            Yes — registered nonprofits get 50% off Pro, and early-stage startups can apply for a discounted first year. Reach out to sales to get started.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA banner -->
+  <section class="px-6 lg:px-8 pb-24">
+    <div class="mx-auto max-w-6xl reveal">
+      <div class="relative rounded-3xl overflow-hidden px-8 py-16 sm:py-20 text-center bg-gradient-to-br from-violet-600 via-indigo-600 to-cyan-500">
+        <div class="absolute inset-0 bg-grid opacity-20"></div>
+        <h2 class="relative text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Ready to work the way your best day feels?</h2>
+        <p class="relative mt-4 text-white/80 max-w-xl mx-auto">Join thousands of teams who ditched the busywork. Set up your workspace in under five minutes.</p>
+        <div class="relative mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="#" class="w-full sm:w-auto text-center font-semibold bg-white text-ink px-7 py-3.5 rounded-xl hover:bg-slate-100 transition-colors">Start your free trial</a>
+          <a href="#" class="w-full sm:w-auto text-center font-semibold text-white border border-white/40 px-7 py-3.5 rounded-xl hover:bg-white/10 transition-colors">Talk to sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="px-6 lg:px-8 py-14 border-t border-white/5">
+    <div class="mx-auto max-w-6xl">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-10">
+        <div class="lg:col-span-2">
+          <a href="#" class="flex items-center gap-2 font-extrabold text-lg text-white">
+            <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-cyan-400 text-ink text-sm font-black">N</span>
+            Nova
+          </a>
+          <p class="mt-4 text-sm text-slate-500 max-w-xs">The focused workspace for teams who'd rather build than manage.</p>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold text-white">Product</h4>
+          <ul class="mt-4 space-y-3 text-sm text-slate-500">
+            <li><a href="#features" class="hover:text-white transition-colors">Features</a></li>
+            <li><a href="#pricing" class="hover:text-white transition-colors">Pricing</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Integrations</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Changelog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold text-white">Company</h4>
+          <ul class="mt-4 space-y-3 text-sm text-slate-500">
+            <li><a href="#" class="hover:text-white transition-colors">About</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold text-white">Legal</h4>
+          <ul class="mt-4 space-y-3 text-sm text-slate-500">
+            <li><a href="#" class="hover:text-white transition-colors">Privacy</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Terms</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-14 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <p>© 2026 Nova, Inc. All rights reserved.</p>
+        <div class="flex gap-5">
+          <a href="#" class="hover:text-white transition-colors">Twitter</a>
+          <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
+          <a href="#" class="hover:text-white transition-colors">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const panel = btn.nextElementSibling;
+        const icon = btn.querySelector('.faq-icon');
+        const isOpen = !panel.classList.contains('hidden');
+        document.querySelectorAll('.faq-panel').forEach(p => p.classList.add('hidden'));
+        document.querySelectorAll('.faq-icon').forEach(i => i.classList.remove('rotate-180'));
+        if (!isOpen) {
+          panel.classList.remove('hidden');
+          icon.classList.add('rotate-180');
+        }
+      });
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal:not(.in-view)').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
