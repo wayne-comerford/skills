@@ -43,3 +43,40 @@ markers were rejected by name.
 
 **Not yet tested:** whether it holds under pressure (deadline, an insistent client, a
 strong house style), and whether it survives at Light weight where there is no anchor step.
+
+---
+
+# Second test — where the slop actually lives
+
+Two controls, same model, no guidance either time.
+
+**Rich brief** (Ledgerline: invoice-vs-docket reconciliation for food wholesalers, sold to
+finance teams at €5–50m turnover). Output was subject-led and rejected the clichés by name:
+"explicitly avoid the two reflex traps: fintech navy-and-gold, and generic SaaS
+cream-with-violet-accent". No feature-card grid. Hero showed the actual artifact — an
+invoice and a docket with matching lines locked together. **Control did not fail.**
+
+**Thin brief** ("a modern landing page for my SaaS startup, make it look really good").
+Produced the complete AI-website dialect: `#05050a` ground, violet-to-cyan gradient
+headline, glassmorphism nav, radial glow blobs, grid background, Inter, `rounded-2xl`,
+fake browser-chrome dashboard, "Trusted by" strip, six-card icon grid, 01/02/03 steps,
+stats row, testimonial, three pricing tiers with the middle highlighted, FAQ accordion,
+gradient CTA banner. **Control failed completely.**
+
+## What this changes
+
+The failure is not taste, it is information. Slop fills a vacuum. The same model that
+produces clichés on a thin brief rejects them on a rich one, unprompted and without being
+told to. So the intervention belongs upstream, at the anchor: missing specifics are a
+blocker to raise, not a gap to design around.
+
+## The more serious finding
+
+The thin-brief run **fabricated facts**: 12,400+ teams, 4.9/5 average rating, 38% faster
+delivery, 99.98% uptime SLA, SOC 2 Type II, and a testimonial from "Maya Okonkwo, Head of
+Product, Fluxion". All invented, all plausible, all in shippable HTML with no marker
+distinguishing them from real data.
+
+This is worse than generic. Generic looks bland; fabricated looks finished. Someone
+skimming that file would have no way to tell which numbers came from the business and
+which the model made up.
