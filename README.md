@@ -51,8 +51,6 @@ It isn't a builder in its own right. It's *how* the building happens, so the ran
 | **An API or CLI** | Deliberately misuses it and reads the errors — that one test discriminates more than any other |
 | **A redesign matching a competitor** | Puts yours and theirs side by side, shuffled, and asks a judge who doesn't know which is which |
 
-Two real results from the first two runs: on a golf directory it found four call-to-action buttons at less than half the legally required contrast, and a focus ring that had been removed rather than restyled. On a restaurant site it found the main food photograph rendering at zero pixels on mobile, and a hero image taking eleven seconds to paint on a phone connection — neither of which the person who built it had noticed, because that person was me.
-
 Where it doesn't help: anything with no checkable standard. "Write me something creative" has nothing to measure against, so it is ordinary work with extra ceremony.
 
 #### Why it works
