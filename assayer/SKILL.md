@@ -61,19 +61,15 @@ Where they overlap, the superpowers skill wins on mechanics and Assayer wins on 
 
 **At Heavy, name an exemplar** — one to three real artifacts someone can open. Not "a modern SaaS dashboard" but "Linear's issue list: the density, the keyboard model, how it stays responsive at 5,000 rows." If the user said "world-class" without naming anything, propose two or three and let them pick; that choice says more than any amount of adjective-gathering. Then **rank the dimensions**, because the ranking decides where rounds get spent — otherwise the loop polishes shaders while input latency stays terrible.
 
-**The exemplar is the floor, not the target.** Matching it means you have caught up, which is not the same as having made something worth choosing. Left alone, an agent asked to match a named reference produces the *category average* — the design every business of that type already has. It will look competent and it will be interchangeable, which for a client is usually worse than looking rough.
+**The exemplar is the floor, not the target.** Matching it means you have caught up, not that you have made something worth choosing — a judge who cannot tell the two apart has certified that you are interchangeable, and the original wins that trade. Left alone, an agent matching a named reference produces the category average.
 
-The mechanism is specific and worth recognising, because it is easy to miss while it happens: **the facts that make the subject itself distinct get spent on decoration rather than structure.** A bakery brief naming a wood-fired oven, a communal table and a Saturday queue produces a site that photographs those three things and is otherwise identical to every other bakery site — the facts became image captions instead of design decisions.
+**Name at least one thing true of this subject and almost nothing else, and decide what it changes structurally** — layout, ordering, interaction, what the thing is built around. Not what it looks like in a photograph. Distinguishing facts spent on decoration instead of structure is the specific way this fails.
 
-So name, at anchor time, **at least one thing that is true of this subject and of almost nothing else, and decide what it changes structurally.** Not what it looks like in a photograph — what it changes about the layout, the ordering, the interaction, the thing the page is built around. A restaurant whose regulars appear on a wall of fame should have that wall in the page structure, not a gallery captioned "our customers".
+**Generic output is an information failure before it is a taste failure.** A thin brief produces the house style of the model's own training distribution; the same model given a real product, buyer and job rejects those clichés unprompted. The difference is whether there was anything specific to design *from*. So if you cannot name specifics, that is the blocker to raise, not a gap to paper over — the average is what fills the space where facts should be.
 
-**Generic output is an information failure before it is a taste failure.** Tested against a thin brief — "a modern landing page for my SaaS startup, make it look really good" — a model produces the house style of its own training distribution: dark near-black ground, violet-to-cyan gradient headline, glassmorphism panels, radial glow, `rounded-2xl` everywhere, a fake browser-chrome mockup, a logo strip, a six-card icon grid, numbered steps, a stats row, a testimonial, three pricing tiers with the middle one highlighted, an FAQ accordion, a gradient closing banner. Given a brief with a real product, a real buyer and a real job, the same model rejects those clichés by name unprompted. The difference is not effort or taste. It is whether there was anything specific to design *from*.
+*Check — the swap test:* replace the name, logo and imagery with a competitor's. If nothing breaks, you built a template. `references/distinctiveness.md` has the mechanism and the controls.
 
-So the fix is upstream of the design: **if you cannot name specifics, that is the blocker to raise, not a gap to paper over.** Ask for them, go and find them, or state plainly what is missing. Building anyway guarantees the average, because the average is what fills the space where facts should be.
-
-**And never invent the facts.** The same test fabricated a customer count, a review score, a performance percentage, a security certification, and a named person at a named company — all plausible, all false, all sitting in shippable HTML. This is the most dangerous form of slop because it looks finished. Placeholders must be visibly unusable: `[CUSTOMER COUNT]`, not `12,400+`. Never a realistic-looking number, logo, quote, or person that no one supplied.
-
-*Check — the swap test:* replace the name, logo and photography with a competitor's. Does anything break, or does it simply become their site? If it works unchanged, you built a template and the reference beat you while you were matching it. A fresh judge should be able to name the distinguishing feature after ten seconds without being told what to look for.
+**For commercial work, ask where the business is going before anchoring on what it looks like now.** The artifact shows the current model; the standard depends on the one being moved toward, and that lives only in the user's head. Anchor from the artifact alone and you produce a better version of the thing they are trying to stop being. One question — what is changing about how you make money, and what do you want people doing that they cannot today — reorders the whole brief. Ask it before the exemplar, not after.
 
 **Establish how close you can actually get to the exemplar.** This decides which gate exists in beat 3:
 
@@ -86,9 +82,9 @@ So the fix is upstream of the design: **if you cannot name specifics, that is th
 
 Check early, and check properly, because tooling failure looks identical to the exemplar being unavailable and the two call for completely different responses.
 
-Work down the rungs rather than stopping at the first refusal. In sandboxed sessions direct outbound HTTP is usually blocked — `curl`, `WebFetch` and headless-browser navigation all fail — while `WebSearch` keeps working. But a scraping service reaches sites the sandbox cannot, and if one is installed it often turns a presumed T3 into a real T1. Look for what this environment actually has (Firecrawl, Brave, any MCP fetch tool) before concluding the exemplar is out of reach; declaring T3 with an unused capability sitting there is the most common way this step goes wrong.
+Work down the rungs rather than stopping at the first refusal. Sandboxed sessions usually block direct outbound HTTP — `curl`, `WebFetch` and browser navigation all fail — while `WebSearch` still works and an installed scraping service reaches sites the sandbox cannot. Declaring T3 with an unused capability sitting there is the commonest way this step goes wrong.
 
-Expect two distinct failures and read them differently. A network or proxy refusal means *you* cannot get out, and another tool may still succeed. A captcha or bot wall means the *site* is refusing automated access, and no amount of tool-swapping fixes it — that one is genuinely T3 no matter what you have installed. Heavily-defended documentation and product sites hit the second case routinely, so a plausible-looking capture is worth a glance before you trust it: a page of captcha text will scrape without erroring and looks like success.
+Read the two failures differently: a **proxy refusal** means you cannot get out and another tool may succeed; a **captcha or bot wall** means the site is refusing automation, and no tool fixes it. Bot walls return content without erroring, so glance at a capture before trusting it — a page of captcha text looks exactly like success.
 
 **T2 costs one message and is the highest-leverage move available.** If you're at T3/T4 and the user has the exemplar open on their own machine, ask for captures — screenshots at named viewports, a recording, an exported file. Thirty seconds of their time turns the weakest anchor into the strongest. Ask before building, not after a critic starts guessing.
 
@@ -125,6 +121,8 @@ Three things reliably corrupt a check. Handle them before spending a round on th
 **"There is no X" needs more evidence than "here is an X", not less.** A missing thing and a thing you failed to look at produce identical silence, so absence is the easiest conclusion in the world to reach wrongly — and it is usually load-bearing, because it licenses a substitute. The specific way this happens is boring: you truncate a listing to read it (`head`, `slice`, "first few results", a contact sheet of the largest files), then reason about the population from the sample. The truncated list looks exactly like a complete one. Before concluding something does not exist, count the full set, and search for the thing by name rather than scanning what happens to be on top. Any sentence of the form "they don't have any…" is a claim about a whole population and should cite how the whole population was checked.
 
 **Inspect wherever the thing actually renders, not where you happen to be looking.** Any artifact with variants — viewports, themes, locales, roles, feature flags, empty and populated states — hides its worst defects in the variant nobody opened. An element that is `display:none` in the one configuration you measured contributes nothing to your results and can be badly broken. Enumerate the variants the item genuinely has and check each; a clean sweep of one configuration is not a clean sweep.
+
+**Your own earlier actions are part of the harness.** A file you created in a previous turn can change how the thing under test builds or behaves — a stray lockfile that moves a tool's inferred project root, an install in the wrong directory, a branch left checked out, a server still holding a port. This presents as a project bug, so it gets debugged as one, and the environment you are measuring is no longer the environment the user has. Before concluding the artifact is broken, account for what you put there.
 
 **Strip the harness before judging.** Dev servers, test rigs and preview tools inject their own furniture — overlay badges, debug banners, hot-reload indicators, seeded placeholder data, watermarks. A critic that has not been told will report it as a defect, every time. Either capture from a production-mode build, or tell the critic exactly what to ignore and why.
 
@@ -187,13 +185,15 @@ Declare a round budget up front (3 per item, 5 for visual work) so hitting it is
 
 ## Failure modes
 
-- **Anchor drift** — agents rewriting the standard to match what they built.
-- **Demo-only fidelity** — the screenshotted path is immaculate, everything beside it is rough. Probe what nobody's been polishing, and check every variant the thing has rather than the one already open.
-- **Trusting the probe** — treating a scripted measurement as a finding. Automated checks over-report confidently; an unconfirmed hit sends a builder to "fix" something that was already correct.
-- **Reference amnesia** — by round three agents compare against their memory of the exemplar. Re-attach the real files every round.
-- **Wrong-axis polish** — ten rounds on shaders while input latency stays bad. That's what ranking the dimensions is for.
-- **Category average** — matching the reference so faithfully that the result is the design every business of that type already has. Passing the gate and being forgettable are entirely compatible.
-- **Weight inflation** — running Heavy on work that needed Light. Expensive theatre, and it trains the user to stop trusting the method.
+A quick self-check when a round feels wrong. Each is covered above; this is the index.
+
+- **Anchor drift** — the standard quietly moving to match what got built.
+- **Demo-only fidelity** — the one path you screenshotted is immaculate; everything beside it is rough.
+- **Trusting the probe** — a scripted measurement treated as a finding.
+- **Reference amnesia** — by round three you are comparing against your memory of the exemplar, not the exemplar.
+- **Wrong-axis polish** — rounds spent on the dimension you enjoy rather than the one ranked first.
+- **Category average** — passing the gate and being forgettable are entirely compatible.
+- **Weight inflation** — Heavy on work that needed Light. Expensive theatre that teaches the user to distrust the method.
 
 ## Files
 
