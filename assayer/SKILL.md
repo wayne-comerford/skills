@@ -52,6 +52,19 @@ These skills already do most of the build and verify machinery well. Call them; 
 
 Where they overlap, the superpowers skill wins on mechanics and Assayer wins on standard-setting: brainstorming decides *what* to build, the anchor decides *what good looks like*, and neither substitutes for the other.
 
+### Optional domain sharpening
+
+If `grill-with-docs` is available and the work is still shapeable, run it **after the Assayer anchor and before Superpowers planning**. Assayer sets the quality standard; `grill-with-docs` stress-tests the idea, settles vocabulary, and records durable domain language or hard-to-reverse decisions before the plan turns into implementation steps.
+
+Use it for new products, large features, domain-heavy workflows, or anything where words like booking, venue, shift, client, staff, appointment, payment, or status could mean subtly different things. Skip it for crisp bugfixes, already-approved specs, tiny edits, or anything where creating `CONTEXT.md` / ADR material would be noise.
+
+Default sequence when it applies:
+
+1. Assayer — anchor what "good" means.
+2. `grill-with-docs` — sharpen decisions and vocabulary.
+3. Superpowers planning — turn the sharpened understanding into a build plan.
+4. TDD / implementation / verification — build and prove it.
+
 ---
 
 ## 1. Anchor
