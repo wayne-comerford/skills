@@ -1,6 +1,6 @@
 ---
 name: assayer
-description: Use when quality is the constraint and someone needs to be sure. Strongest signals: the user names something to match or beat ("as good as Linear"), asks for work that is world-class, production-grade or flawless, wants an unsparing review before shipping, asks to run subagents in parallel or iterate until it holds up, or says a first attempt came back generic and interchangeable. Also applies to ordinary build, fix and improve work where "good" can be checked — sites, UI, code, docs, reports, data. Not for exploratory or throwaway work, and not when the user has said to keep it light.
+description: "Use when quality is the constraint and someone needs to be sure: feature work, bugfixes, docs, designs, reports, research, reviews, or any ask framed as production-grade, world-class, flawless, exemplar-matching, parallel, or independently reviewed. Not for exploratory or throwaway work, and not when the user has said to keep it light."
 ---
 
 # Assayer
@@ -26,6 +26,33 @@ Two properties make this work, and every rule below protects one of them:
 ## Pick the weight first
 
 State which weight you're using in one line before starting. Declaring it is the guardrail: it stops heavy asks being quietly served with light work, and stops trivial asks eating eight agents.
+
+## Default token discipline
+
+Assayer defaults to the lightest weight that can honestly protect the user's outcome. The method is not permission to spend unlimited context, run every gate, or spawn critics for work that does not need them.
+
+Use this operating default:
+
+> Use Assayer, but default to Light unless the task clearly needs more. Before starting, state the chosen weight and why. Optimize for token discipline: inspect only relevant files, prefer targeted tests, avoid full browser/build matrices unless the change is visual, risky, or near release. Do not spawn subagents unless explicitly requested or required for independent review. If using Heavy mode, declare the round budget and stop when the value no longer justifies the cost. Always report what was skipped.
+
+When token discipline matters, choose the smallest honest option:
+
+- **Answer-only** — for explanation, advice, prompts, or "what do you think?" No repo scan unless needed.
+- **Static review** — inspect the relevant files/diff and report findings. No edits, no builds, no browser unless a specific claim needs verification.
+- **Targeted verification** — run the smallest test, typecheck, command, or probe that can confirm the risk under discussion.
+- **Release gate** — full test/build/browser/accessibility matrix only when near shipping, when the change is visual/interactive, or when a regression would be expensive.
+- **Heavy / parallel** — exemplar work, multi-surface redesigns, high-stakes correctness, or explicit user approval for independent critics and iteration.
+
+Practical routing:
+
+- **Light by default** for questions, explanations, reviews, small fixes, config checks, prompt writing, and "can you look at this?" requests.
+- **Standard** for real feature work, meaningful bugfixes, docs that need accuracy, or changes where a missed edge would cost the user time.
+- **Heavy only** when the user asks for world-class quality, "wow factor", pixel-perfect/premium work, named-exemplar parity, high-stakes correctness, or a multi-surface launch/release.
+- **Review-only means no edits, no commits, and no broad verification** unless a specific claim needs checking.
+- **Targeted evidence first.** Run the smallest useful check before a full suite, build, browser matrix, accessibility scan, or production probe.
+- **Subagents are not automatic.** Use them when the user asks for delegation/parallel work, when the chosen weight requires an independent critic, or when independent review materially reduces risk. Otherwise keep the work local.
+- **Keep outputs capped and relevant.** Prefer focused commands and filtered logs; do not pour thousands of lines of test/build output into context when the summary and failing excerpt would do.
+- **Name skipped gates.** Token discipline is acceptable only when the user can see what was not checked.
 
 | | **Light** | **Standard** | **Heavy** |
 | --- | --- | --- | --- |
